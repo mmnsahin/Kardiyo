@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kardiyoloji Sözlü – Çıkmış Sorular</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+html{scroll-padding-top:70px}
+:root{
+  --paper:#F6F7F4; --card:#FFFFFF; --ink:#18211D; --muted:#5E6B64; --line:#D5DBD6;
+  --scrub:#1F5C4D; --scrub-tint:#E3EDE8; --warn:#8A5200; --warn-bg:#FBF1DF;
+  --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  box-sizing:border-box;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#121614; --card:#1A201D; --ink:#E4EAE6; --muted:#9AA8A0; --line:#2C3531;
+  --scrub:#7FC4AE; --scrub-tint:#1F2E28; --warn:#F0B86A; --warn-bg:#2D2414;}}
+:root[data-theme="dark"]{
+  --paper:#121614; --card:#1A201D; --ink:#E4EAE6; --muted:#9AA8A0; --line:#2C3531;
+  --scrub:#7FC4AE; --scrub-tint:#1F2E28; --warn:#F0B86A; --warn-bg:#2D2414;}
+
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--scrub)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--scrub);outline-offset:2px}
+
+header.top{max-width:900px;margin:0 auto;padding:28px 24px 20px}
+header.top h1{font-size:clamp(1.7rem,3.5vw,2.4rem);line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+header.top p{margin:0;color:var(--muted)}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}
+.tools input[type=search]{flex:1 1 280px;min-width:0;padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:1rem}
+.tools label{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.95rem;cursor:pointer}
+
+.wrap{max-width:900px;margin:0 auto;padding:0 24px 80px}
+header.top{display:block}
+.bar{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.barin{max-width:900px;margin:0 auto;padding:8px 24px;display:flex;align-items:center;gap:12px}
+.bartitle{font-weight:600;font-size:.98rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.burger{flex:0 0 auto;width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:var(--card);cursor:pointer;padding:0}
+.burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;box-shadow:0 -6px 0 var(--ink),0 6px 0 var(--ink)}
+.burger:hover{border-color:var(--scrub)}
+.scrim{position:fixed;inset:0;background:rgba(10,15,12,.38);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.scrim.show{opacity:1;pointer-events:auto}
+nav.side{position:fixed;top:0;left:0;bottom:0;width:min(300px,86vw);background:var(--card);border-right:1px solid var(--line);z-index:50;transform:translateX(-100%);transition:transform .22s ease;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 16px) 12px calc(env(safe-area-inset-bottom,0px) + 16px)}
+nav.side.open{transform:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 6px 12px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+.sidehead strong{font-size:1rem}
+.closebtn{width:36px;height:36px;border:0;background:transparent;font-size:1.5rem;line-height:1;cursor:pointer;color:var(--muted);border-radius:6px}
+.closebtn:hover{background:var(--scrub-tint);color:var(--ink)}
+nav.side a{display:flex;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:.95rem}
+nav.side a:hover{background:var(--scrub-tint)}
+nav.side a span{color:var(--muted);font-variant-numeric:tabular-nums}
+body.locked{overflow:hidden}
+
+section.topic{margin-bottom:44px}
+section.topic>h2{font-size:1.45rem;margin:0 0 4px;font-weight:700}
+section.topic>.sub{color:var(--muted);font-size:.92rem;margin:0 0 14px}
+
+.q{border-top:1px solid var(--line)}
+.q:last-child{border-bottom:1px solid var(--line)}
+.q>button.head{all:unset;box-sizing:border-box;display:grid;grid-template-columns:64px minmax(0,1fr) 20px;gap:14px;align-items:baseline;width:100%;padding:14px 4px;cursor:pointer}
+.q>button.head:focus-visible{outline:2px solid var(--scrub);outline-offset:-2px}
+.freq{font-size:1.6rem;font-weight:700;color:var(--scrub);font-variant-numeric:tabular-nums;line-height:1;text-align:right}
+.freq small{font-size:.9rem;font-weight:600;margin-left:1px}
+.freq.one{color:var(--muted);font-weight:500;font-size:1.25rem}
+.qt{font-weight:600;font-size:1.05rem;line-height:1.35}
+.hocas{display:block;font-weight:400;color:var(--muted);font-size:.88rem;margin-top:3px}
+.chev{color:var(--muted);transition:transform .15s}
+.q.open .chev{transform:rotate(90deg)}
+.body{display:none;padding:2px 4px 22px 82px}
+.q.open .body{display:block}
+
+.merged{font-family:var(--serif);font-size:1.04rem;line-height:1.62;max-width:72ch}
+.merged h4{font-family:var(--sans);font-size:.98rem;margin:18px 0 6px}
+.merged p{margin:0 0 10px}
+.merged ul,.merged ol{margin:0 0 10px;padding-left:22px}
+.merged li{margin:3px 0}
+.merged blockquote{margin:12px 0;padding:10px 14px;background:var(--warn-bg);color:var(--warn);border-radius:6px;font-family:var(--sans);font-size:.93rem}
+.src{font-family:var(--sans);font-size:.72rem;font-weight:600;color:var(--scrub);background:var(--scrub-tint);border-radius:4px;padding:1px 5px;margin-left:4px;white-space:nowrap;vertical-align:1px}
+.note{font-size:.9rem;color:var(--muted);margin:0 0 10px}
+.pending{padding:12px 14px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:.93rem;max-width:72ch}
+
+button.rawbtn{margin-top:14px;padding:8px 14px;border:1px solid var(--scrub);border-radius:8px;background:transparent;color:var(--scrub);font-weight:600;cursor:pointer}
+button.rawbtn[aria-expanded=true]{background:var(--scrub);color:var(--card)}
+.raws{display:none;margin-top:14px}
+.raws.show{display:block}
+.raw{border-left:3px solid var(--scrub);background:var(--card);padding:12px 16px;margin-bottom:12px;border-radius:0 8px 8px 0}
+.raw .meta{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-size:.86rem;color:var(--muted);margin-bottom:6px}
+.raw .letter{font-weight:700;color:var(--scrub);font-size:1rem}
+.raw .oq{font-style:italic;font-size:.92rem;margin:0 0 8px;color:var(--muted)}
+.raw .ans{font-family:var(--serif);white-space:pre-line;line-height:1.58;max-width:72ch;overflow-wrap:anywhere}
+.raw .empty{color:var(--muted);font-style:italic}
+.single .ans{font-family:var(--serif);white-space:pre-line;line-height:1.6;max-width:72ch;overflow-wrap:anywhere}
+mark{background:#F5E27A;color:#18211D;border-radius:2px}
+.none{color:var(--muted);padding:30px 0}
+
+@media (max-width:860px){
+  .q>button.head{grid-template-columns:44px minmax(0,1fr) 16px;gap:10px}
+  .freq{font-size:1.3rem}
+  .body{padding-left:4px}
+}
+@media (prefers-reduced-motion:reduce){.chev,nav.side,.scrim{transition:none}}
+
+.num{font-size:1.05rem;font-weight:700;color:var(--scrub);font-variant-numeric:tabular-nums;text-align:right}
+.qfull{font-style:italic;color:var(--muted);margin:0 0 14px;max-width:72ch}
+.ans{font-family:var(--serif);font-size:1.03rem;line-height:1.6;max-width:72ch;overflow-wrap:anywhere}
+.ans p{margin:0 0 8px;white-space:pre-line}
+.ans h4{font-family:var(--sans);font-size:.98rem;margin:16px 0 6px}
+.tbl{overflow-x:auto;margin:12px 0 16px;max-width:100%}
+.tbl table{border-collapse:collapse;font-size:.9rem;min-width:560px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 9px;overflow-wrap:normal;word-break:normal;text-align:left;vertical-align:top}
+.tbl th{background:var(--scrub-tint);font-weight:600}
+figure.img{margin:12px 0 16px}
+figure.img img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px;cursor:zoom-in;background:#fff}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:60;padding:16px;cursor:zoom-out}
+.lb.show{display:flex}
+.lb img{max-width:100%;max-height:100%;background:#fff}
+.meta2{font-size:.85rem;color:var(--muted);margin-top:10px}
+</style>
+</head>
+<body>
+<div class="bar"><div class="barin">
+  <button class="burger" id="burger" aria-label="Konuları aç" aria-controls="nav" aria-expanded="false"><span></span></button>
+  <span class="bartitle" id="bartitle">Kardiyoloji Sözlü</span>
+</div></div>
+<header class="top">
+  <h1>Kardiyoloji Sözlü – Çıkmış Sorular</h1>
+  <p id="stats"></p>
+  <div class="tools">
+    <input type="search" id="search" placeholder="Soruda veya cevapta ara" aria-label="Ara">
+    
+  </div>
+</header>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="nav" aria-label="Konular"><div class="sidehead"><strong>Konular</strong><button class="closebtn" id="closeNav" aria-label="Konuları kapat">×</button></div><div id="navlist"></div></nav>
+<div class="lb" id="lb"><img alt=""></div>
+<div class="wrap">
+  <main id="main"></main>
+</div>
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const rows = {}; DATA.rows.forEach(r => rows[r.no] = r);
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const lowerTR = s => s.toLocaleLowerCase('tr');
+document.getElementById('stats').textContent = `${DATA.rows.length} soru, ${DATA.sections.length} konu başlığı altında.`;
+
+function textHTML(t, hl){
+  const out = []; let para = [];
+  const flush = () => { if (para.length) { out.push(`<p>${hl(esc(para.join('\n')))}</p>`); para = []; } };
+  for (const line of t.split('\n')) {
+    if (!line.trim()) { flush(); continue; }
+    if (line.startsWith('\u00a7')) { flush(); out.push(`<h4>${hl(esc(line.slice(1)))}</h4>`); }
+    else para.push(line);
+  }
+  flush(); return out.join('');
+}
+function blocksHTML(bs, hl){
+  return bs.map(b => {
+    if (b.type === 'text') return textHTML(b.text, hl);
+    if (b.type === 'image') return `<figure class="img"><img src="${DATA.images[b.src]}" alt="Dosyadaki görsel" loading="lazy"></figure>`;
+    const [h, ...rest] = b.rows;
+    return `<div class="tbl"><table><thead><tr>${h.map(c => `<th>${hl(esc(c))}</th>`).join('')}</tr></thead><tbody>${rest.map(r => `<tr>${r.map(c => `<td>${hl(esc(c))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  }).join('');
+}
+function hay(r){ if (!r._h) r._h = lowerTR(r.q + ' ' + r.title + ' ' + r.blocks.map(b => b.text || (b.rows ? b.rows.flat().join(' ') : '')).join(' ')); return r._h; }
+
+const main = document.getElementById('main'), nav = document.getElementById('nav'), navlist = document.getElementById('navlist');
+const search = document.getElementById('search');
+function render(){
+  const q = lowerTR(search.value.trim());
+  const hl = q.length >= 2 ? s => s.replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), m => `<mark>${m}</mark>`) : s => s;
+  let html = '', navHtml = '';
+  for (const s of DATA.sections) {
+    const its = s.items.map(([no, title]) => Object.assign(rows[no], {title})).filter(r => !q || hay(r).includes(q));
+    if (!its.length) continue;
+    html += `<section class="topic" id="s-${s.id}"><h2>${esc(s.title)}</h2><p class="sub">${its.length} soru</p>` +
+      its.map(r => `<div class="q" id="q${r.no}"><button class="head" aria-expanded="false"><span class="num">${r.no}</span><span class="qt">${esc(r.title)}</span><span class="chev" aria-hidden="true">›</span></button><div class="body"><p class="qfull">${hl(esc(r.q))}</p><div class="ans">${blocksHTML(r.blocks, hl)}</div><p class="meta2">Soru ${r.no}, sayfa ${r.pages.join(', ')}</p></div></div>`).join('') + `</section>`;
+    navHtml += `<a href="#s-${s.id}">${esc(s.title)}<span>${its.length}</span></a>`;
+  }
+  main.innerHTML = html || `<p class="none">"${esc(search.value)}" için sonuç yok.</p>`;
+  navlist.innerHTML = navHtml;
+  if (q) main.querySelectorAll('.q').forEach(el => { el.classList.add('open'); el.querySelector('.head').setAttribute('aria-expanded', 'true'); });
+}
+const lb = document.getElementById('lb');
+main.addEventListener('click', e => {
+  const img = e.target.closest('figure.img img');
+  if (img) { lb.querySelector('img').src = img.src; lb.classList.add('show'); return; }
+  const head = e.target.closest('button.head');
+  if (head) { const o = head.parentElement.classList.toggle('open'); head.setAttribute('aria-expanded', o); }
+});
+lb.addEventListener('click', () => lb.classList.remove('show'));
+const burger = document.getElementById('burger'), scrim = document.getElementById('scrim');
+function setNav(open){
+  nav.classList.toggle('open', open); scrim.classList.toggle('show', open);
+  document.body.classList.toggle('locked', open); burger.setAttribute('aria-expanded', open);
+  if (open) nav.querySelector('a, button').focus(); else burger.focus({preventScroll:true});
+}
+burger.addEventListener('click', () => setNav(true));
+document.getElementById('closeNav').addEventListener('click', () => setNav(false));
+scrim.addEventListener('click', () => setNav(false));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (lb.classList.contains('show')) lb.classList.remove('show'); else if (nav.classList.contains('open')) setNav(false); } });
+navlist.addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); setNav(false); document.querySelector(a.getAttribute('href')).scrollIntoView(); });
+let t; search.addEventListener('input', () => { clearTimeout(t); t = setTimeout(render, 150); });
+render();
+const bartitle = document.getElementById('bartitle');
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) bartitle.textContent = e.target.querySelector('h2').textContent; }), {rootMargin:'-60px 0px -80% 0px'});
+const watch = () => { io.disconnect(); main.querySelectorAll('section.topic').forEach(s => io.observe(s)); };
+watch(); new MutationObserver(watch).observe(main, {childList:true});
+window.addEventListener('scroll', () => { if (scrollY < 120) bartitle.textContent = 'Kardiyoloji Sözlü'; }, {passive:true});
+if (location.hash) { const el = document.querySelector(location.hash); if (el) { el.classList.add('open'); el.scrollIntoView(); } }
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+[
+ {"id":"kapak","title":"Kapak Hastalıkları ve Romatizmal Ateş","items":[
+  [1,"Ciddi aort darlığının oskültasyon bulguları"],
+  [9,"Vaka: 75 y erkek, efor sonrası senkop, geç zirve yapan sistolik ejeksiyon üfürümü"],
+  [6,"Ciddi aort yetmezliğinin fizik muayene bulguları"],
+  [4,"Mitral darlığın oskültasyon bulguları"],
+  [11,"Vaka: 32 y kadın, hemoptizi, middiyastolik rulman, AF"],
+  [5,"Mitral yetmezliğinin nedenleri"],
+  [2,"Romatizmal kardit ataklarından korunma"],
+  [48,"İnfektif endokardit profilaksisi"]]},
+ {"id":"pht","title":"Pulmoner Hipertansiyon","items":[
+  [3,"Pulmoner hipertansiyon sınıflaması ve en sık nedeni"],
+  [10,"Vaka: 32 y kadın, efor dispnesi, P2 sert, sağ ventrikül hipertrofisi"]]},
+ {"id":"ht","title":"Hipertansiyon ve Aort Diseksiyonu","items":[
+  [14,"Sistemik kan basıncı nasıl ölçülmeli?"],
+  [15,"Sekonder hipertansiyonu düşündüren bulgular"],
+  [16,"Acil serviste yüksek kan basıncına yaklaşım"],
+  [17,"Dirençli hipertansiyon ve nedenleri"],
+  [12,"KB >220/120 ve şiddetli göğüs ağrısı: ön tanılar, tanı, KB düşürme"],
+  [8,"Vaka: 45 y hipertansif, göğüs ve sırt ağrısı, erken diyastolik üfürüm"]]},
+ {"id":"risk","title":"Kardiyovasküler Risk ve Korunma","items":[
+  [18,"Majör kardiyovasküler risk faktörleri"],
+  [19,"Primer ve sekonder profilaksi"],
+  [20,"Antitrombosit ilaçlar: primer ve sekonder profilakside kimlere?"],
+  [21,"Metabolik sendrom"],
+  [24,"Vaka: 55 y kadın, Tip 2 DM, TA 160/100 – antihipertansif ve statin"],
+  [25,"Vaka: 35 y sağlıklı birey, risk değerlendirmesi ve kontrol"],
+  [46,"Vaka: 5 yıl önce MI, ilaçlarını kesmiş 58 y hasta – tedavi önerileri"]]},
+ {"id":"kah","title":"Koroner Arter Hastalığı ve Göğüs Ağrısı","items":[
+  [22,"Kararlı ve kararsız angina fizyopatolojik farkı"],
+  [23,"Stabil anginada tanısal yöntemler"],
+  [26,"Vaka: 62 y erkek, eforla 10–15 dk retrosternal ağrı"],
+  [27,"Göğüs ağrısının ayırıcı tanısı"]]},
+ {"id":"mi","title":"Akut Miyokard İnfarktüsü","items":[
+  [28,"Vaka EKG: MI lokasyonu derivasyonlara göre, STEMI"],
+  [29,"AMI tanısı ve kardiyak biyomarkerlar (28 ile birlikte çözülmüş)"],
+  [30,"AMI komplikasyonları"],
+  [7,"Vaka: inferior MI 3. gün, yeni dispne, apikal sistolik üfürüm"],
+  [31,"AMI tedavi prensipleri ve hedefleri"],
+  [32,"Fibrinolitik tedavi kontrendikasyonları"],
+  [33,"Sağ ventrikül infarktüsü"],
+  [34,"AMI sırasında aritmiler, VF ve VT tedavisi"]]},
+ {"id":"ky","title":"Kalp Yetersizliği ve Kardiyomiyopatiler","items":[
+  [13,"Vaka: 65 y sigaralı, dispne ve bilateral bacak ödemi – ayırıcı tanı"],
+  [35,"Vaka: alkolik 48 y, PND, JVB artışı, AF"],
+  [36,"Vaka: 85 y obez kadın, HT ve AF, periferik ödem"],
+  [37,"Ejeksiyon fraksiyonu: formül, normal değer, yöntemler"],
+  [38,"Düşük EF'li KY'de nörohormonal hipotez"],
+  [39,"Stabil KY'yi dekompanse eden 5 neden"],
+  [40,"Akut akciğer ödemi tedavisi"],
+  [41,"Korunmuş EF'li KY (diyastolik KY)"],
+  [47,"Vaka: dilate KMP, EF %36, baş dönmesi – ilaç değerlendirmesi"],
+  [42,"Vaka: 19 y sporcu, griden 10 gün sonra dispne ve ortopne"]]},
+ {"id":"perikard","title":"Perikard Hastalıkları","items":[
+  [49,"Akut perikardit nedenleri"],
+  [50,"Akut perikarditte muayene bulguları"],
+  [51,"Akut perikardit – akut MI ayırıcı tanısı"],
+  [43,"Pulsus paradoksus"]]},
+ {"id":"aritmi","title":"Aritmi ve Resüsitasyon","items":[
+  [44,"Vaka EKG: 80 y erkek, göğüs ağrısı – tanı, tedavi, hipotansiyon"],
+  [45,"Vaka EKG: 35 y kadın acil servis – tanı ve acil yaklaşım"],
+  [52,"Kardiyoversiyon ve defibrilasyon"],
+  [53,"Vaka: kardiyak arrest, 112 ile gelen hasta – ritim ve müdahale"]]}
+]
