@@ -122,12 +122,46 @@ figure.img img{max-width:100%;height:auto;border:1px solid var(--line);border-ra
 .lb.show{display:flex}
 .lb img{max-width:100%;max-height:100%;background:#fff}
 .meta2{font-size:.85rem;color:var(--muted);margin-top:10px}
+
+.navbtn{margin-left:auto;flex:0 0 auto;padding:9px 14px;border:1px solid var(--scrub);border-radius:8px;background:var(--scrub);color:var(--card);font-weight:600;font-size:.92rem;cursor:pointer;white-space:nowrap}
+.navbtn:hover{opacity:.9}
+body.fcmode header.top,body.fcmode .wrap,body.fcmode .burger{display:none}
+#fc{display:none;max-width:900px;margin:0 auto;padding:24px 24px 80px}
+body.fcmode #fc{display:block}
+#fc h1{font-size:clamp(1.5rem,3vw,2rem);margin:0 0 14px;line-height:1.15}
+.fcfilters{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+.fcfilters input[type=search]{padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:1rem;min-width:0}
+.filterbtn{align-self:flex-start;padding:9px 16px;border:1px solid var(--scrub);border-radius:8px;background:transparent;color:var(--scrub);font-weight:600;cursor:pointer}
+.filterbtn[aria-expanded=true]{background:var(--scrub);color:var(--card)}
+.fcpanel{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:14px;display:flex;flex-direction:column;gap:12px}
+.fcpanel[hidden]{display:none}
+.fcpacts{display:flex;gap:8px}
+.fcpacts button{padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:transparent;cursor:pointer;font-size:.85rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);cursor:pointer;font-size:.88rem}
+.chip:hover{border-color:var(--scrub)}
+.chip[aria-pressed=true]{background:var(--scrub);color:var(--card);border-color:var(--scrub)}
+.chip small{opacity:.75;margin-left:4px}
+.fcinfo{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.92rem;margin-bottom:10px;gap:12px;flex-wrap:wrap}
+.fccard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;min-height:260px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.fccard:focus-visible{outline-offset:3px}
+.fctag{font-size:.78rem;font-weight:600;color:var(--scrub);background:var(--scrub-tint);border-radius:4px;padding:2px 8px;display:inline-block;margin-bottom:14px}
+.fcq{font-size:clamp(1.15rem,2.4vw,1.5rem);font-weight:600;line-height:1.35;margin:0}
+.fchint{color:var(--muted);font-size:.88rem;margin-top:22px}
+.fcans{display:none;border-top:1px solid var(--line);margin-top:20px;padding-top:16px;cursor:auto}
+.fccard.flipped .fcans{display:block}
+.fccard.flipped .fchint{display:none}
+.fcctl{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.fcctl button{flex:1 1 120px;padding:12px 16px;border:1px solid var(--scrub);border-radius:8px;background:transparent;color:var(--scrub);font-weight:600;cursor:pointer}
+.fcctl button.primary{background:var(--scrub);color:var(--card)}
+.fcctl button:disabled{opacity:.4;cursor:default}
 </style>
 </head>
 <body>
 <div class="bar"><div class="barin">
   <button class="burger" id="burger" aria-label="Konuları aç" aria-controls="nav" aria-expanded="false"><span></span></button>
   <span class="bartitle" id="bartitle">Kardiyoloji Sözlü</span>
+  <button class="navbtn" id="viewbtn" type="button">Flashcard</button>
 </div></div>
 <header class="top">
   <h1>Kardiyoloji Sözlü – Çıkmış Sorular</h1>
@@ -143,6 +177,24 @@ figure.img img{max-width:100%;height:auto;border:1px solid var(--line);border-ra
 <div class="wrap">
   <main id="main"></main>
 </div>
+<section id="fc" aria-label="Flashcard">
+  <h1>Flashcard</h1>
+  <div class="fcfilters">
+    <button type="button" class="filterbtn" id="fcfbtn" aria-expanded="false" aria-controls="fcpanel">Filtrele <span id="fcfn"></span></button>
+    <div class="fcpanel" id="fcpanel" hidden>
+      <div class="fcpacts"><button type="button" id="fcall">Tümünü seç</button><button type="button" id="fcnone">Temizle</button></div>
+      <div class="chips" id="fcchips" role="group" aria-label="Konu seçimi"></div>
+      <input type="search" id="fcsearch" placeholder="Sorularda ara (isteğe bağlı)" aria-label="Flashcard filtrele">
+    </div>
+  </div>
+  <div class="fcinfo"><span id="fccount"></span><span>Boşluk: çevir · ← → : önceki/sonraki</span></div>
+  <div class="fccard" id="fccard" tabindex="0" role="button" aria-label="Kartı çevir"></div>
+  <div class="fcctl">
+    <button id="fcprev" type="button">← Önceki</button>
+    <button id="fcflip" type="button" class="primary">Cevabı göster</button>
+    <button id="fcnext" type="button">Sonraki →</button>
+  </div>
+</section>
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const DATA = JSON.parse(document.getElementById('data').textContent);
@@ -213,8 +265,76 @@ const bartitle = document.getElementById('bartitle');
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) bartitle.textContent = e.target.querySelector('h2').textContent; }), {rootMargin:'-60px 0px -80% 0px'});
 const watch = () => { io.disconnect(); main.querySelectorAll('section.topic').forEach(s => io.observe(s)); };
 watch(); new MutationObserver(watch).observe(main, {childList:true});
-window.addEventListener('scroll', () => { if (scrollY < 120) bartitle.textContent = 'Kardiyoloji Sözlü'; }, {passive:true});
-if (location.hash) { const el = document.querySelector(location.hash); if (el) { el.classList.add('open'); el.scrollIntoView(); } }
+window.addEventListener('scroll', () => { if (scrollY < 120 && !document.body.classList.contains('fcmode')) bartitle.textContent = 'Kardiyoloji Sözlü'; }, {passive:true});
+if (location.hash && location.hash !== '#flashcard') { const el = document.querySelector(location.hash); if (el) { el.classList.add('open'); el.scrollIntoView(); } }
+
+// ---- Flashcard ----
+const fcState = {topics:new Set(), q:'', deck:[], i:0, flipped:false};
+const fcCard = document.getElementById('fccard'), fcChips = document.getElementById('fcchips'), fcSearch = document.getElementById('fcsearch');
+const fcTopicOf = {}; DATA.sections.forEach(s => s.items.forEach(([no, title]) => { fcTopicOf[no] = {sec:s.title, title}; }));
+function fcShuffle(a){ for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function fcChipsRender(){
+  fcChips.innerHTML = DATA.sections.map(s => `<button type="button" class="chip" data-id="${s.id}" aria-pressed="${fcState.topics.has(s.id)}">${fcState.topics.has(s.id) ? '✓ ' : ''}${esc(s.title)}<small>${s.items.length}</small></button>`).join('');
+  document.getElementById('fcfn').textContent = fcState.topics.size ? `(${fcState.topics.size} konu)` : '(Tümü)';
+}
+function fcBuild(){
+  const q = lowerTR(fcState.q.trim());
+  const nos = [];
+  for (const s of DATA.sections) {
+    if (fcState.topics.size && !fcState.topics.has(s.id)) continue;
+    for (const [no] of s.items) if (!q || hay(rows[no]).includes(q)) nos.push(no);
+  }
+  fcState.deck = fcShuffle(nos); fcState.i = 0; fcState.flipped = false; fcShow();
+}
+function fcShow(){
+  const n = fcState.deck.length;
+  document.getElementById('fccount').textContent = n ? `Kart ${fcState.i + 1} / ${n}` : '0 kart';
+  document.getElementById('fcprev').disabled = fcState.i === 0;
+  document.getElementById('fcnext').disabled = !n;
+  document.getElementById('fcflip').disabled = !n;
+  if (!n) { fcCard.innerHTML = '<p class="none">Bu filtreyle eşleşen soru yok.</p>'; fcCard.classList.remove('flipped'); return; }
+  const r = rows[fcState.deck[fcState.i]], t = fcTopicOf[r.no];
+  fcCard.innerHTML = `<span class="fctag">${esc(t.sec)}</span><p class="fcq">${esc(r.q)}</p><p class="fchint">Cevabı görmek için karta dokun</p><div class="fcans ans">${blocksHTML(r.blocks, s => s)}</div>`;
+  fcCard.classList.toggle('flipped', fcState.flipped);
+  document.getElementById('fcflip').textContent = fcState.flipped ? 'Cevabı gizle' : 'Cevabı göster';
+}
+function fcFlip(){ if (!fcState.deck.length) return; fcState.flipped = !fcState.flipped; fcShow(); }
+function fcNext(){ if (!fcState.deck.length) return; if (fcState.i + 1 >= fcState.deck.length) { fcShuffle(fcState.deck); fcState.i = 0; } else fcState.i++; fcState.flipped = false; fcShow(); }
+function fcPrev(){ if (fcState.i > 0) { fcState.i--; fcState.flipped = false; fcShow(); } }
+fcChips.addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if (!c) return;
+  const id = c.dataset.id;
+  if (fcState.topics.has(id)) fcState.topics.delete(id); else fcState.topics.add(id);
+  fcChipsRender(); fcBuild();
+});
+const fcfbtn = document.getElementById('fcfbtn'), fcpanel = document.getElementById('fcpanel');
+fcfbtn.addEventListener('click', () => { const o = fcpanel.hidden; fcpanel.hidden = !o; fcfbtn.setAttribute('aria-expanded', o); });
+document.getElementById('fcall').addEventListener('click', () => { DATA.sections.forEach(s => fcState.topics.add(s.id)); fcChipsRender(); fcBuild(); });
+document.getElementById('fcnone').addEventListener('click', () => { fcState.topics.clear(); fcChipsRender(); fcBuild(); });
+let ft; fcSearch.addEventListener('input', () => { clearTimeout(ft); ft = setTimeout(() => { fcState.q = fcSearch.value; fcBuild(); }, 150); });
+fcCard.addEventListener('click', e => { if (e.target.closest('figure.img img')) { lb.querySelector('img').src = e.target.src; lb.classList.add('show'); return; } if (e.target.closest('.tbl')) return; fcFlip(); });
+document.getElementById('fcflip').addEventListener('click', fcFlip);
+document.getElementById('fcnext').addEventListener('click', fcNext);
+document.getElementById('fcprev').addEventListener('click', fcPrev);
+document.addEventListener('keydown', e => {
+  if (!document.body.classList.contains('fcmode') || e.target.matches('input')) return;
+  if (e.key === 'ArrowRight') fcNext(); else if (e.key === 'ArrowLeft') fcPrev();
+  else if (e.key === ' ' || e.key === 'Enter') { if (e.target.matches('button')) return; e.preventDefault(); fcFlip(); }
+});
+// ---- Görünüm geçişi ----
+const viewbtn = document.getElementById('viewbtn');
+let fcInit = false;
+function route(){
+  const fc = location.hash === '#flashcard';
+  document.body.classList.toggle('fcmode', fc);
+  viewbtn.textContent = fc ? 'Ana Sayfa' : 'Flashcard';
+  document.title = fc ? 'Flashcard – Kardiyoloji Sözlü' : 'Kardiyoloji Sözlü – Çıkmış Sorular';
+  if (fc) { bartitle.textContent = 'Flashcard'; if (!fcInit) { fcInit = true; fcChipsRender(); fcBuild(); } window.scrollTo(0, 0); }
+  else bartitle.textContent = 'Kardiyoloji Sözlü';
+}
+viewbtn.addEventListener('click', () => { location.hash = location.hash === '#flashcard' ? 'top' : 'flashcard'; });
+window.addEventListener('hashchange', route);
+route();
 </script>
 </body>
 </html>
